@@ -1,12 +1,12 @@
 //---------------------------------------------------------------------------------------
-//  FILE:   XComDownloadableContentInfo_$ModSafeName$.uc
+//  FILE:   XComDownloadableContentInfo_ArchipelagoRandomizer.uc
 //           
 //	The X2DownloadableContentInfo class provides basic hooks into XCOM gameplay events. 
 //  Ex. behavior when the player creates a new campaign or loads a saved game.
 //  
 //---------------------------------------------------------------------------------------
 
-class X2DownloadableContentInfo_$ModSafeName$ extends X2DownloadableContentInfo;
+class X2DownloadableContentInfo_ArchipelagoRandomizer extends X2DownloadableContentInfo;
 
 /// <summary>
 /// This method is run if the player loads a saved game that was created prior to this DLC / Mod being installed, and allows the 
