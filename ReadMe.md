@@ -1,6 +1,6 @@
-# $Archipelago Randomizer$ README
+# Archipelago Randomizer README
 
-This is the README for the XCOM mod $Archipelago Randomizer$. After writing up a brief description, we recommend including the following sections.
+This is the README for the XCOM mod Archipelago Randomizer. After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
