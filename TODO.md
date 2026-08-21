@@ -373,6 +373,245 @@ locked settings
 - [ ] Ensure difficulty-aware AP effects read the authoritative difficulty value
 - [ ] Leave Heal Between Encounters player-controlled unless AP logic later depends on it
 
+## Assembly Investigation
+
+- [ ] Confirm Android ownership/deployment limit
+- [ ] Determine whether destroyed Androids can be replaced
+- [ ] Identify all Assembly projects
+- [ ] Record prerequisites for each Assembly project
+- [ ] Record every Supply unlock produced by Assembly
+- [ ] Identify priority Assembly projects
+- [ ] Determine which Assembly projects are safe to randomize
+- [ ] Keep Android Personnel available through tutorial progression
+- [ ] Determine whether Android Personnel completion should still send a check
+
+
+## Investigation Mission Progression
+
+- [ ] Determine exactly how Investigation mission reveal timers work
+- [ ] Determine what "+X Days" toward an Investigation mission actually modifies
+- [ ] Identify core vs reveal-acceleration Investigation missions
+- [ ] Determine whether reveal progress can safely be controlled by AP
+- [ ] Determine whether vanilla reveal-progress rewards must remain active
+- [ ] Determine whether Progressive Investigation can replace/advance the normal
+      core-mission reveal requirement
+
+
+## Spec Ops
+
+- [ ] Record available Spec Ops
+- [ ] Record Spec Ops rewards
+- [ ] Determine whether Spec Ops are repeatable
+- [ ] Determine what agent ranks unlock advanced Spec Ops
+- [ ] Evaluate optional Spec Op Sanity after vanilla behavior is understood
+
+
+## Unrest / City Anarchy
+
+- [ ] Record maximum District Unrest
+- [ ] Record how missions increase/decrease Unrest
+- [ ] Determine how City Anarchy increases
+- [ ] Determine campaign-loss threshold
+- [ ] Identify every vanilla method for reducing Unrest / Anarchy
+- [ ] Determine whether waiting for AP progression can create unavoidable loss
+- [ ] Brainstorm AP Unrest mitigation after vanilla system is understood
+
+
+## Resource Economy
+
+- [ ] Track Credit income and expenses
+- [ ] Track Elerium income and expenses
+- [ ] Track Intel income and expenses
+- [ ] Determine whether Intel should be available as AP filler
+- [ ] Determine whether starting Intel needs a YAML option
+
+## Extended City Anarchy Investigation
+
+- [ ] Determine what the "Extended City Anarchy" campaign option actually changes
+- [ ] Find the config/state variable storing Extended City Anarchy
+- [ ] Search SDK usage of that variable
+- [ ] Compare normal City Anarchy behavior with Extended City Anarchy enabled
+- [ ] Determine whether Extended City Anarchy changes:
+  - [ ] Maximum Anarchy
+  - [ ] Anarchy gain
+  - [ ] Unrest gain
+  - [ ] Emergency missions
+  - [ ] Campaign-loss conditions
+  - [ ] Something else
+- [ ] Reevaluate whether AP actually needs to force Extended City Anarchy OFF
+
+## Campaign Failure / State Recovery
+
+- [ ] Determine exactly what happens to saves after normal City Anarchy failure
+- [ ] Determine exactly what happens to saves after Hardcore failure
+- [ ] Determine what AP state can be reconstructed from the server after reconnect
+- [ ] Design AP item ownership vs locally-applied-item tracking
+- [ ] Ensure previously received items can be reapplied to a restarted campaign
+- [ ] Ensure previously checked locations cannot be checked/sent twice
+- [ ] Determine how Mission Sanity counter behaves across campaign restart
+- [ ] Determine how Progressive Investigation behaves across campaign restart
+- [ ] Determine how agent progression behaves across campaign restart
+- [ ] Determine how one-time resource filler behaves across campaign restart
+- [ ] Determine how traps behave during state reconstruction
+- [ ] Ensure reconnect/recovery does NOT replay previously received traps
+- [ ] Test reconnecting an older save to a newer AP server state
+- [ ] Test connecting a brand-new campaign to an existing AP slot
+
+## Slot Recovery / Collected-State Handling
+
+- [ ] Treat AP checked locations as authoritative across campaign restarts
+- [ ] Restore Mission Sanity counter from AP slot state
+- [ ] Ensure already-collected locations never resend checks
+- [ ] Design "already collected" UI state for recruit locations
+- [ ] Generalize already-collected visual state for other AP UI checks
+- [ ] Reapply/regrant received non-trap items after campaign restart
+- [ ] Track traps as one-shot consumed effects
+- [ ] Ensure traps never replay after reconnect/reload/new campaign
+- [ ] Decide later whether consumable recovery needs anti-duplication safeguards
+
+## Agent Ability / Promotion Investigation
+
+- [ ] Determine exact rank progression data for all agents
+- [ ] Identify event fired when an agent reaches a new rank
+- [ ] Determine how Armory ability icons are enabled/disabled
+- [ ] Determine how mutually exclusive ability choices are stored
+- [ ] Determine whether AP can unlock a rank-tier ability before vanilla rank
+- [ ] Determine whether Training prerequisites depend on vanilla rank or ability state
+- [ ] Design AP marker/icon for "ability received before rank reached"
+- [ ] Ensure reaching rank sends check only once
+
+## Agent Rank / AP Progression Investigation
+
+### Vanilla Rank System
+
+- [ ] Find where agent XP is stored
+- [ ] Find where mission XP is awarded
+- [ ] Find the XP thresholds for each vanilla agent rank
+- [ ] Find where XP normally causes rank advancement
+- [ ] Determine whether rank and XP are stored independently
+- [ ] Determine which game systems directly read the agent's stored vanilla rank
+- [ ] Determine whether we can safely separate effective AP rank from background
+      XP milestone progression
+
+
+### Background XP Check System
+
+- [ ] Design background tracking for vanilla XP rank milestones
+- [ ] Ensure agents continue earning XP normally
+- [ ] Detect when each vanilla XP threshold is reached
+- [ ] Send corresponding AP location when each XP milestone is reached
+- [ ] Ensure each XP milestone location sends only once
+- [ ] Ensure XP milestone completion does NOT grant abilities
+- [ ] Ensure XP milestone completion does NOT create a promotion notification
+- [ ] Ensure XP milestone completion does NOT change AP-driven effective rank
+- [ ] Test multiple XP milestones being crossed before corresponding AP
+      progression is received
+
+
+### AP-Driven Effective Rank
+
+- [ ] Determine how Progressive <Agent> should map to effective rank tiers
+- [ ] Create/identify state for each agent's AP-driven effective rank
+- [ ] Make ability availability use AP-driven progression
+- [ ] Make relevant Armory UI use AP-driven progression
+- [ ] Make rank-dependent Training use AP-driven progression
+- [ ] Identify other systems that depend on agent rank
+- [ ] Determine which rank checks must use AP effective rank
+- [ ] Determine whether any systems must continue using background XP/rank
+- [ ] Test AP effective rank being ahead of background XP
+- [ ] Test background XP milestones being ahead of AP effective rank
+
+
+### Promotion UI
+
+- [ ] Find where the promotion icon/notification is activated
+- [ ] Suppress promotion notification from background XP milestones
+- [ ] Trigger promotion notification when Progressive <Agent> is received
+- [ ] Find where ability icons are enabled/disabled
+- [ ] Allow AP-received ability tiers to become available immediately in HQ
+- [ ] Keep unreceived AP ability tiers greyed out
+- [ ] Design AP marker for ability/rank tiers received before their XP check
+      milestone has been completed
+- [ ] Determine whether another visual state is needed when XP milestone is
+      complete but AP progression has not been received
+
+
+### Ability Choices
+
+- [ ] Confirm whether Field Agent abilities are mutually exclusive choices
+- [ ] Confirm whether Senior Agent abilities are mutually exclusive choices
+- [ ] Determine how mutually exclusive ability selections are stored
+- [ ] Allow choices immediately when corresponding AP progression is received
+- [ ] Ensure later background XP milestone does not alter/reopen the choice
+
+
+### Training Interaction
+
+- [ ] Determine exactly which vanilla ranks unlock Training options
+- [ ] Determine how Training checks agent rank
+- [ ] Make appropriate Training prerequisites use AP-driven effective rank
+- [ ] Determine whether individual Training upgrades should be included within
+      Progressive <Agent> or randomized separately
+- [ ] Ensure background XP alone cannot prematurely unlock randomized Training
+
+
+### Tutorial Interaction
+
+- [ ] Find what triggers the first promotion tutorial dialogue
+- [ ] Determine whether tutorial expects actual vanilla rank advancement
+- [ ] Preserve first-promotion tutorial behavior using AP-driven progression
+- [ ] Test receiving first Progressive <Agent> before equivalent XP milestone
+- [ ] Test reaching first XP milestone before receiving equivalent AP progression
+
+
+### Tactical / HQ Delivery
+
+- [ ] Queue Progressive <Agent> received during Tactical
+- [ ] Apply queued agent progression after returning safely to HQ
+- [ ] Trigger promotion indicator after queued progression is applied
+- [ ] Ensure newly received ability is usable on the next mission
+
+## Rank Query Investigation
+
+- [ ] Find the primary functions used to query an agent's current rank
+- [ ] Determine whether UI and gameplay systems use helper functions or read rank fields directly
+- [ ] Identify the safest interception point for effective AP rank
+- [ ] Determine which systems must continue seeing vanilla/background rank
+- [ ] Avoid modifying vanilla XP storage unless absolutely necessary
+- [ ] Test whether AP effective rank can be substituted without breaking promotion history
+
+## Agent Training Investigation
+
+- [ ] Confirm Training unlocks after first agent promotion in Tutorial ON
+- [ ] Compare Training availability in Tutorial OFF
+- [ ] Identify all permanent Training upgrades for each agent
+- [ ] Identify all Scar-removal Training entries
+- [ ] Separate permanent progression Training from Scar recovery
+- [ ] Determine how permanent Training completion is stored on an agent
+- [ ] Determine whether permanent Training can be granted directly without
+      spending Training time
+- [ ] Determine whether Training upgrades have prerequisite Training upgrades
+- [ ] Determine whether AP can grant later Training before vanilla rank
+- [ ] Queue Progressive <Agent> Training only while Training system is globally
+      unavailable
+- [ ] Allow Training progression to be stored for unrecruited agents
+- [ ] Ensure Progressive <Agent> Training never recruits the agent
+- [ ] Apply/reconcile stored Training progression when the agent is recruited
+
+## Training Check / UI Investigation
+
+- [ ] Determine how Training options become visible based on agent rank
+- [ ] Redirect Training rank checks toward AP-driven effective rank where needed
+- [ ] Identify completion event for individual Training projects
+- [ ] Prevent randomized Training completion from granting duplicate vanilla reward
+- [ ] Create AP location identity for each permanent Training opportunity
+- [ ] Determine how completed Training is stored per agent
+- [ ] Modify Training UI to show assigned AP item
+- [ ] Show AP item classification/type in Training UI
+- [ ] Show already-collected state for Training locations
+- [ ] Investigate automatic hinting of Progressive items from Training UI
+- [ ] Keep Scar recovery Training outside randomized progression
+
 # Useful Source Investigations
 
 -   [ ] Continue studying X2StrategyElement_DioMissionSources.uc
@@ -395,3 +634,7 @@ locked settings
 -   STRATEGY_ResearchCompleted_Submitted
 -   STRATEGY_CharacterUnlocked_Submitted
 -   STRATEGY_InvestigationStarted_Submitted
+
+# Extra Unsorted TODO
+-   [ ] Investigate what the Archipelago client API gives us for received-item ordering/indexes for clean implamentation of
+    reconciliation system

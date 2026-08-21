@@ -655,6 +655,30 @@ players may eventually reach the item Chimera Squad needs.
 This creates an AP progression loop even when the main investigation is
 temporarily blocked.
 
+#### AP Progression Stalls and Unrest
+
+Archipelago may temporarily prevent the player from advancing their current
+Investigation while waiting for remote progression.
+
+The player should remain able to complete Side/Filler missions and Mission
+Sanity checks during this period.
+
+However, Chimera Squad's District Unrest / City Anarchy systems may punish
+extended campaign time and could eventually cause campaign failure.
+
+The randomizer must ensure that waiting for remote AP progression does not make
+campaign failure effectively unavoidable.
+
+Potential solutions:
+- Unrest-reduction AP filler items.
+- Purchasable Unrest reduction.
+- Additional Unrest reduction from filler missions.
+- Reduced/paused AP-related Unrest pressure while progression-blocked.
+- Other solution TBD.
+
+Do not alter vanilla Unrest balance until its mechanics have been fully
+observed and investigated.
+
 ### Filler Mission Availability
 
 Investigate whether Chimera Squad can continue generating filler
@@ -680,6 +704,564 @@ or a direct finite check count.
 
 The generated Mission Sanity count must be balanced against expected
 campaign length and other location sources.
+
+## Assembly Randomization
+
+Assembly is Chimera Squad's research system and will be a major Archipelago
+progression/location system.
+
+### Android Personnel Exception
+
+Android Personnel should remain available through its normal tutorial
+progression.
+
+It should NOT be randomized away from the player because it is part of the
+tutorial sequence and introduces the Android system.
+
+Whether completing Android Personnel itself sends an AP check remains TBD.
+
+### Other Assembly Projects
+
+Current direction:
+- Later Assembly projects can be randomized.
+- Vanilla Assembly -> Supply relationships should be preserved where practical.
+- Receiving/completing research progression should still enable the systems and
+  Supply equipment associated with that research.
+
+Assembly progression may also provide natural gates for additional AP Supply
+check waves.
+
+### Investigation Reveal Progression
+
+Important Investigation missions that vanilla reveals through campaign-day
+progress should instead be gated by Archipelago progression.
+
+Current proposed behavior:
+
+Vanilla:
+Investigation progress / passing days
+-> Reveal timer advances
+-> Core Investigation mission becomes available
+
+Archipelago:
+Progressive Investigation received
+-> Core Investigation mission becomes available
+
+The vanilla time-to-reveal requirement should be removed for AP-controlled
+Investigation missions.
+
+Investigation missions whose primary vanilla reward is "+X Days" toward
+revealing the next core mission will therefore lose the purpose of that reward.
+
+These missions may instead provide one or more AP checks.
+
+Exact number of checks per mission is TBD.
+
+This allows the player to continue performing Investigation-related missions
+while waiting for Progressive Investigation from the multiworld.
+
+## Campaign Failure / AP Recovery
+
+Campaign failure must NOT invalidate the player's Archipelago slot.
+
+This applies to normal City Anarchy failure and any other supported campaign
+failure condition.
+
+The Archipelago server remains authoritative for:
+- Items already received by the Chimera Squad slot.
+- Locations already checked by the Chimera Squad slot.
+
+If the player starts a new Chimera Squad campaign and reconnects to the same
+AP slot, the mod must reconcile the new campaign against the slot's existing
+AP state.
+
+Previously received AP progression must not be permanently lost because the
+local Chimera Squad campaign was restarted.
+
+Previously checked AP locations remain checked and must NOT become obtainable
+again as new checks.
+
+### Initial Recovery Direction
+
+Preferred initial behavior:
+
+Campaign fails
+-> Player starts a new Chimera Squad campaign
+-> Player reconnects to the same AP slot
+-> Mod retrieves/reconstructs previously received AP progression
+-> Previously checked locations remain completed
+-> Player continues the same Archipelago slot using the new campaign
+
+Exact reconstruction behavior is TBD.
+
+This system should also protect against:
+- Save loss
+- Reloading older saves
+- Crashes
+- Campaign restart
+- Other local/AP state desynchronization
+
+The AP server should be treated as authoritative for AP ownership/check state,
+while the Chimera Squad save tracks how that state has been applied locally.
+
+## Collected Location State
+
+Archipelago location completion is persistent for the lifetime of the slot.
+
+If a Chimera Squad campaign is restarted while reconnecting to the same AP
+slot:
+
+- Previously checked locations remain checked.
+- Those locations must not send duplicate checks.
+- Any UI element tied to an already-collected location should clearly indicate
+  that the AP check has already been collected.
+
+Example: Recruit Patchwork
+
+If "Recruit Patchwork" was already checked earlier in this AP slot:
+
+- A restarted vanilla campaign may still present Patchwork as a recruit choice.
+- UI shows that the AP location is already collected.
+- Selecting Patchwork performs whatever local recruitment behavior is required.
+- No AP check is sent.
+- No AP item is awarded from this location again.
+
+Mission Sanity uses lifetime slot progress rather than local-campaign progress.
+
+Example:
+- Previous campaign reached Complete 27 Missions.
+- New campaign reconnects to same AP slot.
+- Mission Sanity resumes from 27.
+- Next eligible mission advances toward Complete 28 Missions.
+
+## AP Reconnection and Recovery
+
+The mod must distinguish between:
+
+### Normal Resume / Reconnect
+The player loads the same Chimera Squad campaign and reconnects to the same AP slot.
+
+- Compare AP received-item history against locally recorded processed item indexes.
+- Apply only items that AP has sent but this save has not processed.
+- Preserve original receive order.
+- Do not regrant already-processed items.
+- Do not replay traps.
+
+### Desync Catch-Up
+The local save is behind the AP server.
+
+Example:
+AP has sent items 1-25.
+Save has processed items 1-21.
+
+Only items 22-25 are processed.
+
+### Campaign Reconstruction
+The player starts a new Chimera Squad campaign using the same AP slot after campaign failure or intentional restart.
+
+- AP checked locations remain checked.
+- Vanilla interactions tied to already-checked locations may still occur locally,
+  but they send no duplicate AP check.
+- Persistent AP progression is reconstructed.
+- Regrantable resources/items may be restored.
+- One-shot traps are never replayed.
+- Mission Sanity resumes from the slot's existing lifetime progress.
+
+## Agent Ability Progression UI
+
+Vanilla agent rank progression and Archipelago ability progression are separate.
+
+Vanilla rank:
+- Determines when the corresponding AP location/check is sent.
+- Does NOT automatically grant randomized ability progression.
+
+Archipelago progression:
+- Determines which ability tier is available to the agent.
+- May arrive before the agent reaches the corresponding vanilla rank and ability should be USABLE once recieved
+
+The Armory UI must represent both states.
+
+Possible states for a rank tier:
+1. Rank not reached / AP progression not received
+2. Rank reached / AP progression not received
+3. Rank not reached / AP progression received
+4. Rank reached / AP progression received
+
+UI direction:
+- Abilities received through AP should become visible/selectable even if the
+  vanilla rank has not yet been reached.
+- Ability tiers not yet received through AP remain greyed out.
+- A dedicated AP icon/marker under the rank heading should indicate when the
+  AP progression exists but the vanilla rank milestone/check has not yet been
+  reached.
+- Once the vanilla rank is reached, the corresponding AP location is sent.
+
+## Agent Rank vs AP Ability Progression
+
+Archipelago progression controls the agent's effective gameplay rank.
+
+Vanilla XP progression is retained separately as background progression used
+primarily to determine when rank-based Archipelago locations should be checked.
+
+
+### AP-Driven Effective Rank
+
+Receiving Progressive <Agent> advances that agent's effective gameplay rank.
+
+The front-facing game should treat the agent as the rank represented by their
+received AP progression wherever practical.
+
+This includes systems such as:
+- Ability availability
+- Armory rank display
+- Training availability
+- Other gameplay systems that normally ask what rank the agent has reached
+- Rank-dependent UI and functionality
+
+Example:
+
+Godmother has enough received Progressive Godmother items to represent
+Special Agent.
+
+The game should functionally treat Godmother as a Special Agent even if her
+background XP has only reached the vanilla Deputy threshold.
+
+
+### Background XP Milestones
+
+Agents continue earning XP through normal gameplay.
+
+However, XP progression no longer determines the agent's effective gameplay
+rank or automatically grants abilities.
+
+Instead, vanilla XP thresholds are tracked as background AP location
+milestones.
+
+Example:
+
+Godmother earns enough XP that vanilla would promote her from Deputy to
+Field Agent.
+
+AP behavior:
+- Mark the Field Agent XP milestone as completed.
+- Send the corresponding Godmother rank location/check.
+- Do NOT grant an ability.
+- Do NOT change Godmother's AP-driven effective rank.
+- Do NOT display a promotion notification solely because this XP milestone
+  was reached.
+
+The XP milestone must only send its AP location once.
+
+#### Rank Storage Strategy
+
+Preferred implementation:
+- Leave vanilla XP and stored rank progression intact.
+- Do not rewrite/remove the game's normal XP bookkeeping.
+- Track AP-driven effective rank separately.
+- Intercept or redirect gameplay-facing rank queries toward AP effective rank.
+- Use vanilla stored XP/rank only for background AP milestone checks where needed.
+
+Reason:
+This minimizes invasive changes to base-game progression code and preserves
+systems that already correctly track XP and rank history.
+
+
+### AP Ability / Rank Progression
+
+Progressive <Agent> controls the agent's usable progression.
+
+When Progressive <Agent> is received:
+
+If the player is currently Tactical:
+- Queue the progression until the player safely returns to HQ.
+
+Once safely in HQ:
+- Advance the agent's AP-driven effective rank/tier.
+- Make the associated ability tier available immediately.
+- Update rank-dependent gameplay systems where appropriate.
+- Display the promotion indicator on the agent.
+- Allow the player to review/select the new ability in the Armory.
+
+The ability becomes usable immediately regardless of whether the corresponding
+background XP milestone has been reached.
+
+
+### AP Progression Ahead of XP
+
+AP progression may advance an agent beyond their current background XP
+milestones.
+
+Example:
+
+Godmother background XP:
+- Deputy milestone reached
+- Field Agent milestone NOT reached
+
+AP progression:
+- Progressive Godmother has advanced her to Field Agent
+
+Gameplay result:
+- Godmother is treated as Field Agent.
+- Field Agent ability tier is available.
+- Field Agent rank-dependent gameplay systems should treat her as Field Agent.
+- Promotion indicator tells the player a new AP ability is available.
+
+Later, when Godmother earns enough XP for the vanilla Field Agent milestone:
+- Send the Field Agent AP location/check.
+- Record that XP milestone as completed.
+- Do not change her effective rank.
+- Do not grant another ability.
+- Do not display another promotion notification.
+
+
+### XP Ahead of AP Progression
+
+The opposite state is also valid.
+
+Example:
+
+Godmother has accumulated enough XP for vanilla Special Agent.
+
+AP progression has only advanced her to Field Agent.
+
+Gameplay result:
+- Background Field Agent and Special Agent XP milestones may already have sent
+  their corresponding AP checks.
+- Godmother remains functionally Field Agent.
+- Special Agent abilities and rank-dependent functionality remain unavailable.
+- No promotion notification appears merely because the XP milestones were
+  reached.
+
+When the next Progressive Godmother is eventually received:
+- Her AP-driven effective rank advances.
+- The corresponding ability tier becomes available.
+- Promotion notification appears.
+
+
+### Promotion Indicator
+
+The normal promotion indicator should become AP-driven.
+
+Vanilla:
+XP threshold reached
+-> promotion available
+-> promotion indicator appears
+
+Archipelago:
+Progressive <Agent> received
+-> new AP progression available
+-> promotion indicator appears
+
+Background XP milestones should send AP checks silently.
+
+
+### Ability Selection
+
+If a rank contains mutually exclusive ability choices, receiving the
+corresponding Progressive <Agent> tier should immediately allow the player to
+make that choice.
+
+The player does not need to wait for the equivalent background XP milestone.
+
+Exact handling of mutually exclusive abilities requires source investigation.
+
+
+### Training
+
+Training availability should follow the agent's AP-driven effective rank rather
+than their background XP milestone progression.
+
+Example:
+
+If vanilla Training requires Special Agent and AP progression has advanced the
+agent to Special Agent, that Training should become available even if the
+agent's background XP has not yet reached the Special Agent milestone.
+
+Exact Training dependencies require source investigation.
+
+
+### Tutorial / Promotion Dialogue
+
+The first AP-driven promotion should preserve the vanilla promotion tutorial
+experience where practical.
+
+Investigate whether promotion tutorial dialogue is triggered by:
+- XP/rank advancement
+- Promotion availability
+- Promotion indicator
+- Opening the promotion screen
+- Selecting an ability
+- Another event
+
+If necessary, AP should trigger the appropriate tutorial behavior when the
+first AP-driven ability progression becomes available.
+
+## Progressive Agent Training
+
+Progressive <Agent> Training is a separate Archipelago progression item from
+Progressive <Agent>.
+
+It represents permanent Training upgrades that normally improve an agent.
+
+Example:
+
+Progressive Verge Training #1
+-> First permanent Verge Training upgrade
+
+Progressive Verge Training #2
+-> Next permanent Verge Training upgrade
+
+Progressive Verge Training #3
+-> Continue Verge's permanent Training progression
+
+Exact number of copies depends on each agent's available Training upgrades.
+
+
+### Scar Recovery Is NOT Randomized
+
+Training is also used to remove agent Scars.
+
+Scar-removal Training remains part of the normal vanilla game and is NOT
+locked behind Archipelago progression.
+
+Reason:
+Scar recovery is a recovery/debuff-removal mechanic rather than permanent
+randomized progression.
+
+
+### Training System Availability
+
+Progressive <Agent> Training may be received at any time.
+
+If the Training system itself is not yet available:
+- Record the Training item as received.
+- Queue its application.
+- Apply it once Training becomes available.
+
+Once Training is globally available:
+- Received permanent Training progression should be applied immediately when
+  safe in HQ.
+
+
+### Training for Unrecruited Agents
+
+Progressive <Agent> Training may be received before the corresponding agent has
+been recruited.
+
+This does NOT recruit the agent.
+
+Instead:
+- Record the Training progression as owned for that agent.
+- Do not block other AP processing while waiting for the agent.
+- When the agent is eventually recruited through Progressive <Agent>, their
+  previously received Training progression is already owned and should become
+  available/applied appropriately.
+
+Example:
+
+Progressive Torque Training received
+-> Torque is not recruited
+-> Torque Training progression is stored
+
+Later:
+
+Progressive Torque received
+-> Torque is recruited
+-> Previously received Torque Training progression is available/applied
+-> No additional AP item is required
+
+
+### Relationship to Effective Rank
+
+Permanent Training progression is controlled by AP ownership, not by vanilla
+background XP rank.
+
+If AP has provided the required Progressive <Agent> Training, that permanent
+Training upgrade should eventually be granted even if the agent has not reached
+the equivalent vanilla XP milestone.
+
+The Training system itself must still be globally available.
+
+## Progressive Agent Training / Training Checks
+
+Permanent Training progression and vanilla Training checks are separate.
+
+### AP-Owned Training Progression
+
+Progressive <Agent> Training represents the permanent Training rewards an agent
+can receive.
+
+These items:
+- Do not recruit the agent.
+- May be received before the agent exists.
+- May be received before the Training system is globally unlocked.
+- Are stored until they can safely be applied.
+
+Once Training is globally available, previously received Training progression
+should be usable/applied when appropriate.
+
+
+### Vanilla Training as AP Locations
+
+Vanilla Training opportunities become outgoing Archipelago checks.
+
+A Training location becomes available when:
+1. The agent's AP-driven effective rank is high enough for that Training option.
+2. The Training system itself is available.
+3. Any other vanilla Training prerequisites are satisfied.
+
+The player must complete the Training normally to clear the AP location.
+
+When the Training completes:
+- Send the corresponding AP location/check.
+- Do NOT grant the randomized Training reward a second time.
+- Record that Training check as completed.
+
+
+### Training UI / AP Item Display
+
+The Training UI should show the AP item assigned to each randomized Training
+location.
+
+The UI should communicate:
+- AP item name
+- Item owner/player
+- Item classification/type
+- Whether the location has already been collected
+
+Progressive items should be visually identifiable.
+
+Current design intent:
+If the Training location contains a Progressive item, automatically hint that
+item through the AP client where supported.
+
+Exact auto-hint behavior requires AP client/API investigation.
+
+
+### Scar Recovery
+
+Scar-removal Training remains vanilla.
+
+Scar recovery:
+- Is not an AP progression item.
+- Does not become a randomized Training check unless later design explicitly
+  chooses otherwise.
+- Remains available as a normal recovery mechanic.
+
+### Basic Conditioning
+
+Current evidence suggests Basic Conditioning may be the universal first
+permanent Training location for every agent.
+
+If confirmed, each eligible agent could have a location such as:
+- Godmother - Basic Conditioning
+- Verge - Basic Conditioning
+- Zephyr - Basic Conditioning
+
+The AP item shown at that Training location is independent of the vanilla
+Training reward.
+
+Confirmation across all agents is still required.
 
 # Design Parking Lot
 

@@ -332,12 +332,276 @@ Need to continue observing whether later missions also award: - Items -
 Resources - Agent progression - Investigation progression - Other
 unlocks
 
+## After First Chosen Investigation Mission
+
+After completing the first chosen faction Investigation mission:
+
+- Spec Ops becomes available.
+- The player gains freedom to choose between multiple available missions.
+
+
+## Assembly Confirmed as Research System
+
+Assembly is effectively Chimera Squad's research system.
+
+The first tutorial Assembly project is:
+
+### Android Personnel
+
+Android Personnel is completed as part of the early tutorial sequence and
+rewards the player with an Android unit.
+
+Because this project is part of the tutorial and introduces Androids,
+Android Personnel should be treated separately from later Assembly projects.
+
+Android observations:
+- Androids act as backup units during missions.
+- If an agent is evacuated or otherwise removed, an Android can replace them.
+- Androids can equip upgrades after the appropriate research.
+- Androids can be purchased after Android Personnel is completed.
+- Observed apparent capacity is 2 Androids at once; confirm whether this is a
+  hard ownership/deployment limit.
+
+
+### Android Personnel Unlocks
+
+Completing Android Personnel unlocks Android units for purchase in Supply and
+three additional Assembly projects:
+
+#### Modular Weapons
+Marked as a priority project by the game.
+
+Rewards:
+- Agents can equip Weapon Mods in the Armory.
+- Auto-Loader becomes available in Supply.
+- Stock becomes available in Supply.
+- Expanded Magazine becomes available in Supply.
+
+#### Modular Armor
+Marked as a priority project by the game.
+
+Rewards:
+- Agents can equip Armor Mods in the Armory.
+- Infiltrator Weave becomes available in Supply.
+- Extra Padding becomes available in Supply.
+- Mach Weave becomes available in Supply.
+
+#### Modular Androids
+
+Rewards:
+- Androids can equip Android Mods in the Armory.
+- Ballistic Foam Lining becomes available in Supply.
+- Polymer Sheathing becomes available in Supply.
+- Servoharness Mk1 becomes available in Supply.
+
+
+## Assembly -> Supply Relationship
+
+Assembly research directly unlocks new equipment in Supply.
+
+Observed pattern:
+
+Assembly Project
+-> gameplay/system unlock
+-> associated equipment becomes purchasable in Supply
+
+This relationship should continue to be observed for later Assembly projects.
+
+
+## Spec Ops
+
+Spec Ops becomes available after the first chosen Investigation mission.
+
+Spec Ops appear useful but are not currently observed to be required for
+campaign progression.
+
+Tutorial states that more advanced Spec Ops become available as agents gain
+ranks.
+
+Potential AP idea:
+- Optional Spec Op Sanity locations.
+
+Do not assume Spec Ops themselves need to be randomized.
+
+Questions:
+- How many Spec Ops exist?
+- Are they repeatable?
+- What exact agent ranks unlock additional Spec Ops?
+- What rewards can Spec Ops provide?
+- Can multiple agents perform Spec Ops simultaneously?
+
+
+## Strategy Resources
+
+Confirmed three major resources:
+
+- Credits
+- Elerium
+- Intel
+
+Continue recording:
+- Sources of each resource.
+- Typical amounts earned.
+- Typical costs.
+- Systems that consume each resource.
+
+
+## Mission Types
+
+Tutorial identifies three mission categories:
+
+### Investigation - Purple
+
+Faction-investigation missions.
+
+Some Investigation missions initially appear locked behind a number of days.
+
+IMPORTANT CORRECTION:
+The displayed timer is NOT necessarily time remaining before the mission
+expires.
+
+Observed case:
+- Investigation mission was locked for a number of days.
+- Another available Investigation mission rewarded +3 Days toward revealing /
+  unlocking the locked Investigation mission.
+
+This suggests some Investigation missions advance/reduce the reveal timer for
+important faction missions.
+
+Need to distinguish:
+- Core Investigation missions
+- Investigation missions whose purpose is to accelerate revelation of a core
+  mission
+- Operations
+- Groundwork
+- Takedowns
+
+
+### Side Missions - Yellow
+
+Optional missions.
+
+Observed rewards include:
+- Strategy resources
+- Items
+
+Examples observed:
+- Side mission rewarding Elerium
+- Side mission apparently rewarding an item
+
+
+### Emergency Missions - Red
+
+Appear in response to district Unrest problems.
+
+Further behavior TBD.
+
+
+## District Unrest
+
+Skipping/not selecting missions can increase Unrest elsewhere.
+
+Observed:
+- Some consequences increase Unrest by 1.
+- Some increase Unrest by 2.
+- Completing missions in districts with Unrest may reduce Unrest.
+
+This system may interact strongly with Archipelago progression stalls and
+Mission Sanity.
+
+Need to observe:
+- Maximum district Unrest.
+- How City Anarchy is calculated.
+- Exact campaign-loss conditions.
+- Normal methods for reducing Unrest.
+- Whether filler missions can be used sustainably while waiting for AP
+  progression.
+
+## Strategy Resource Sources
+
+Confirmed resources:
+- Credits
+- Elerium
+- Intel
+
+Currently observed sources for all three resources:
+- Spec Ops
+- Investigation missions
+- Side missions
+
+Continue recording other sources and typical reward amounts.
+
+## District Unrest
+
+Maximum observed/indicated Unrest per district:
+- 5 stages
+
+Unknown:
+- Whether reaching Stage 5 causes an Emergency mission.
+- Whether Emergency missions begin when advancing from Stage 4 toward Stage 5.
+- Exact relationship between District Unrest and City Anarchy.
+
+### Anarchy System Wiki Info
+After becoming suspicious of how the anarchy and Extended anarchy system works, I looked it up and found this resource that explains what each system does:
+[Anarchy (Chimera)](https://www.ufopaedia.org/Anarchy_(Chimera))
+
+## Agent Promotion Observation
+
+Promotions are based on agent XP/rank and are not tied to a single fixed mission.
+
+Observed:
+- Multiple agents received promotions after the current mission.
+- Rank-up ability tiers unlock when the listed vanilla rank is reached.
+- Because agents rotate through missions, promotion timing can vary by campaign.
+
+This means agent rank milestones are suitable as dynamic AP locations rather
+than fixed campaign-event checks.
+
+## Training Unlock
+
+Training became available after the first observed agent promotion.
+
+All currently available permanent Training options appear to be:
+- Basic Conditioning
+
+Training is also used to remove Scars gained from negative mission experiences.
+
+This means Training contains at least two different categories:
+1. Permanent agent progression
+2. Scar recovery
+
+These should be treated differently by the randomizer.
+
+Need to continue observing:
+- Additional permanent Training upgrades
+- Rank requirements
+- Scar-recovery behavior
+- Training duration
+- Whether all agents share Basic Conditioning
+
+## Training - Basic Conditioning
+
+Observed agents with Basic Conditioning as their first permanent Training option:
+- Godmother
+- Verge
+- Cherub
+- Terminal
+- Zephyr
+
+Current observation:
+Basic Conditioning appears to be the universal first permanent Training option.
+
+This is not yet confirmed for all 11 agents.
+
+Continue checking newly recruited agents.
+
 # Things That May Break Randomization
 
 Record any vanilla behavior that appears dependent on: - Specific
 agents - Specific missions - Investigation order - Campaign day -
 Tutorial state - Agent rank - Research completion - Fixed squad size -
 Fixed roster size
+campaign loss
 
 ## Notes:
 
